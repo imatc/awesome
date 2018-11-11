@@ -41,11 +41,12 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
+beautiful.init("/home/ticma/.config/awesome/theme/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
-editor = os.getenv("EDITOR") or "editor"
+terminal = "terminator"
+-- editor = os.getenv("EDITOR") or "editor"
+editor = "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -184,7 +185,12 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    -- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    local l = awful.layout.suit -- alias
+    local tags = {"main", "misc", "code", "consols", "graphics", "6", "7", "8", "9" }
+    local layouts = { l.tile, l.float, l.tile.left, l.tile, l.float, l.tile, l.float, l.float, l.float }
+    awful.tag(tags, s, layouts)
+    
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
